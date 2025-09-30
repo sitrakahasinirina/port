@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Portfolio — Sitraka Hasinirina (Revamp)</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#071023; --card:#081022; --ink:#eaf0ff; --muted:#9fb2d6;
+  --accent1:#3b82f6; --accent2:#06b6d4; --accent3:#f97316; /* blue / cyan / orange */
+  --grad:conic-gradient(from 180deg at 50% 50%, var(--accent1), var(--accent2), var(--accent3));
+  --r:18px; --shadow:0 26px 60px rgba(2,6,23,.6);
+}
+*{box-sizing:border-box} body{margin:0;background:radial-gradient(800px 400px at 20% 10%,#0b254033,transparent),var(--bg);color:var(--ink);font:16px/1.6 Poppins,system-ui;-webkit-font-smoothing:antialiased}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;z-index:80;background:linear-gradient(180deg,rgba(3,6,13,.6),rgba(3,6,13,.35));backdrop-filter:blur(8px);border-bottom:1px solid #ffffff12}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:.9rem 0}
+nav ul{display:flex;gap:1rem;list-style:none;margin:0;padding:0}
+nav a{padding:.45rem .8rem;border-radius:999px;color:var(--muted);font-weight:600}
+nav a:is(:hover,.active){background:#ffffff08;color:var(--ink);transform:translateY(-2px);transition:.18s}
+.logo{display:flex;align-items:center;gap:.7rem}
+.logo .mark{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent1),#1e3a8a);box-shadow:0 8px 30px rgba(59,130,246,.18)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1rem;border-radius:999px;border:1px solid #ffffff12;background:transparent;color:var(--ink);font-weight:600}
+.btn.primary{border:0;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#061026;box-shadow:0 10px 30px rgba(6,182,212,.12)}
+.hero{position:relative;overflow:visible;padding:84px 0 50px}
+/* animated ambient shapes */
+.blob{position:absolute;filter:blur(44px);opacity:.55;mix-blend-mode:screen;animation:float 10s ease-in-out infinite alternate}
+.b1{width:420px;height:420px;background:radial-gradient(circle,var(--accent1),transparent 60%);left:-140px;top:-100px}
+.b2{width:520px;height:520px;background:radial-gradient(circle,var(--accent2),transparent 60%);right:-180px;top:-120px;animation-delay:1.6s}
+.b3{width:360px;height:360px;background:radial-gradient(circle,var(--accent3),transparent 60%);right:18%;bottom:-120px;animation-delay:3s}
+@keyframes float{to{transform:translateY(36px) translateX(18px) rotate(4deg)}}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center}
+h1{font-size:clamp(34px,5vw,56px);margin:.2rem 0 0}
+.subtitle{color:var(--muted);margin-top:8px}
+.avatar{aspect-ratio:1/1;border-radius:50%;overflow:hidden;border:2px solid #ffffff14;box-shadow:var(--shadow);position:relative;transform-style:preserve-3d}
+.ring{position:absolute;inset:-8px;border-radius:34px;padding:8px;background:var(--grad);-webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite: xor;mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);mask-composite: exclude;pointer-events:none}
+/* modern masculine touches */
+.tagline{display:inline-flex;gap:.6rem;padding:.45rem .9rem;border-radius:999px;background:#0000001a;border:1px solid #ffffff10;color:var(--muted);font-weight:600}
+/* cards */
+section{padding:64px 0}
+.card{background:linear-gradient(180deg,#ffffff04,#ffffff02);border:1px solid #ffffff12;border-radius:var(--r);padding:18px;box-shadow:var(--shadow)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pill{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem .8rem;border-radius:999px;background:#ffffff08;border:1px solid #ffffff10}
+.skills{display:flex;flex-wrap:wrap;gap:.6rem}
+.bar{height:12px;border-radius:999px;background:#081220;border:1px solid #ffffff10;overflow:hidden}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent1))}
+/* projects */
+.projects{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.project{border-radius:14px;overflow:hidden;position:relative;transform-style:preserve-3d;transition:transform .28s cubic-bezier(.18,.9,.3,1), box-shadow .28s}
+.project:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 30px 60px rgba(2,6,23,.6)}
+.project .thumb{aspect-ratio:16/10;background:linear-gradient(135deg,#071233,#041022);display:flex;align-items:center;justify-content:center}
+.project h3{margin:0 0 6px}
+.project .body{padding:14px;background:linear-gradient(180deg,#ffffff03,#ffffff02);border-top:1px solid #ffffff06}
+.sparkle{position:absolute;inset:0;pointer-events:none}
+/* small sparkle animation fallback */
+.project:hover .sparkle{animation:twinkle .8s ease forwards}
+@keyframes twinkle{from{opacity:0}to{opacity:.25}}
+/* subtle animated skill bars */
+.bar[data-val] > i{width:0;transition:width 1s cubic-bezier(.2,.9,.25,1)}
+.reveal{opacity:0;transform:translateY(18px);transition:.65s cubic-bezier(.2,.9,.25,1)}
+.reveal.on{opacity:1;transform:none}
+footer{padding:22px 0;border-top:1px solid #ffffff12;color:var(--muted)}
+/* mobile */
+@media (max-width:980px){.hero-grid{grid-template-columns:1fr}.projects{grid-template-columns:1fr 1fr}.grid-2{grid-template-columns:1fr}}
+@media (max-width:640px){.projects{grid-template-columns:1fr}nav ul{display:none}}
+/* interactive pointer glow */
+.cursor-glow{position:fixed;top:0;left:0;width:40px;height:40px;border-radius:50%;pointer-events:none;mix-blend-mode:screen;transform:translate(-50%,-50%);transition:width .12s,height .12s,opacity .18s}
+/* reduced motion */
+@media (prefers-reduced-motion:reduce){.blob, .project, .reveal, .bar[data-val] > i{transition:none;animation:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <div class="logo" style="border-radius: 50%;
+">
+      <div class="mark"></div>
+      <strong>ANDRIAMIHAJARIVO Hasinirina Sitraka</strong>
+    </div>
+    <nav>
+      <ul>
+        <li><a class="active" href="#accueil">Accueil</a></li>
+        <li><a href="#projets">Projets</a></li>
+        <li><a href="#parcours">Parcours</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="btn primary" href="mailto:Sitraka4034@gmail.com">Me contacter</a>
+  </div>
+</header>
+<main id="accueil" class="hero">
+  <div class="blob b1" aria-hidden="true"></div>
+  <div class="blob b2" aria-hidden="true"></div>
+  <div class="blob b3" aria-hidden="true"></div>
+  <div class="container hero-grid">
+    <div class="reveal">
+      <div class="tagline">⚙️ Développeur Web · Mobile · Maintenance</div>
+      <h1 class="type">Bonjour — je suis <span class="gradText">ANDRIAMIHAJARIVO Hasinirina Sitraka</span></h1>
+      <p class="subtitle">Je conçois des sites et applications robustes, belles et performantes — spécialité : Flutter, JS, Html, Css, Node.js, maintenance système.</p>
+      <div style="display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1rem">
+        <a class="btn primary" href="#projets">Voir mes projets</a>
+        <a class="btn" href="#contact">Disponibilité</a>
+      </div>
+      <div style="margin-top:14px;display:flex;gap:.6rem;align-items:center">
+        <div class="pill">Antananarivo</div>
+        <div class="pill">Licence Informatique • Orion University</div>
+      </div>
+    </div>
+    <figure class="avatar reveal" id="avatar">
+      <span class="ring" aria-hidden="true"></span>
+      <img src="photo.jpg" alt="Photo – Sitraka Hasinirina" style="display:block;width:100%;height:100%;object-fit:cover;transform:translateZ(40px)">
+    </figure>
+  </div>
+</main>
+<section>
+  <div class="container grid-2">
+    <article class="card reveal">
+      <h2>À propos</h2>
+      <p>Développeur orienté résultat, spécialisé dans la création de produits fiables et esthétiques. J'accompagne du cahier des charges jusqu'à la mise en production et la maintenance.</p>
+      <div class="grid-2" style="margin-top:12px">
+        <div class="card"><strong>Ville</strong><br/><span style="color:var(--muted)">Antananarivo</span></div>
+        <div class="card"><strong>Langues</strong><br/><span style="color:var(--muted)">Français · Malagasy · Anglais</span></div>
+      </div>
+    </article>
+    <article class="card reveal">
+      <h2>Compétences</h2>
+      <div class="skills" style="margin-bottom:10px">
+        <span class="pill">HTML</span><span class="pill">CSS</span><span class="pill">JavaScript</span>
+        <span class="pill">Node.js</span><span class="pill">Flutter</span><span class="pill">MongoDB / MySQL</span>
+        <span class="pill">Maintenance</span><span class="pill">CI / Déploiement</span>
+      </div>
+      <div style="margin-top:.6rem">Développement web<div class="bar" data-val="88"><i style="width:88%"></i></div></div>
+      <div style="margin-top:.6rem">Développement mobile<div class="bar" data-val="85"><i style="width:85%"></i></div></div>
+      <div style="margin-top:.6rem">Tech & Maintenance<div class="bar" data-val="78"><i style="width:78%"></i></div></div>
+      <div style="margin-top:.6rem">Bureautique<div class="bar" data-val="95"><i style="width:95%"></i></div></div>
+    </article>
+  </div>
+</section>
+<section id="projets">
+  <div class="container">
+    <h2 class="reveal">Projets</h2>
+    <div class="projects">
+      <article class="project reveal" tabindex="0">
+        <div class="thumb">
+          <svg width="120" height="80" viewBox="0 0 120 80" aria-hidden="true"><rect width="120" height="80" rx="8" fill="#071233"/></svg>
+        </div>
+        <canvas class="sparkle" aria-hidden="true"></canvas>
+        <div class="body">
+          <h3>Site IA-S34</h3>
+          <p style="color:var(--muted)">Chatbot IA • HTML/CSS/JS • Node.js • Hébergé</p>
+          <a href="https://ia-s34-frontend.netlify.app" target="_blank" class="btn">Visiter</a>
+        </div>
+      </article>
+
+      <article class="project reveal" tabindex="0">
+        <div class="thumb"></div>
+        <canvas class="sparkle" aria-hidden="true"></canvas>
+        <div class="body">
+          <h3>App Budget</h3>
+          <p style="color:var(--muted)">Web + Mobile • Flutter • Gestion budgétaire</p>
+          <a class="btn">Projet términé </a>
+        </div>
+      </article>
+
+      <article class="project reveal" tabindex="0">
+        <div class="thumb"></div>
+        <canvas class="sparkle" aria-hidden="true"></canvas>
+        <div class="body">
+          <h3>TRANS_R2 • E-lasa'zao</h3>
+          <p style="color:var(--muted)">Location véhicules • Node.js • Gestion personnel</p>
+          <a class="btn">Projet mise en pause en raison d'attente de confirmation au client</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+<section id="parcours">
+  <div class="container">
+    <h2 class="reveal">Parcours</h2>
+    <div class="grid-2">
+      <div class="card reveal"><strong>LICENCE EN INFORMATIQUE</strong> <span style="color:var(--muted)">Depuis Octobre 2024</span>
+        <p style="color:var(--muted)">Orion University • Licence 2</p></div>
+      <div class="card reveal"><strong>FORMATION EN ANGLAIS</strong> <span style="color:var(--muted)">Août - Octobre 2024</span>
+        <p style="color:var(--muted)">English Tutoring of Madagascar</p></div>
+      <div class="card reveal"><strong>Baccalauréat A2</strong> <span style="color:var(--muted)">2024</span>
+        <p style="color:var(--muted)">CPE Antanimbarinandriana</p></div>
+      <div class="card reveal"><strong>École Militaire</strong> <span style="color:var(--muted)">2020–2024</span>
+        <p style="color:var(--muted)">SEKOLY MIARAMILAM-PIRENENA • Matricule: 4034</p></div>
+      <div class="card reveal"><strong>Étude ÉlectroTechnique</strong> <span style="color:var(--muted)">2018–2020</span>
+        <p style="color:var(--muted)">Lycée Technique Privée RLGé TONGARIVO</p></div>
+    </div>
+  </div>
+</section>
+<section id="contact">
+  <div class="container">
+    <h2 class="reveal">Contact</h2>
+    <div class="card reveal">
+      <div class="grid-2">
+        <div><strong>Téléphone</strong><br/><span style="color:var(--accent2)"><a href="https://wa.me/261386904399" target="_blank">Whatsapp : +261386904399</a></span></div>
+        <div><strong>Email</strong><br/><a href="mailto:Sitraka4034@gmail.com">Sitraka4034@gmail.com</a></div>
+        <div><strong>Adresse</strong><br/><span style="color:var(--muted)">LOT VM 91 AJ Bis Saropody Androndrakely, Antananarivo Madagascar</span></div>
+        <div><strong>Disponibilité</strong><br/><span style="color:var(--muted)">Immédiat</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:.8rem;flex-wrap:wrap">
+    <div>© <span id="year"></span> ANDRIAMIHAJARIVO Hasinirina Sitraka</div>
+    <a id="toTop" class="btn" href="#accueil">↑</a>
+  </div>
+</footer>
+<!-- cursor glow + interactive behaviors -->
+<div id="glow" class="cursor-glow" aria-hidden="true"></div>
+<script>
+// typewriter for the name (instant but stylish)
+(function(){const el=document.querySelector('.type');const full=el.innerText.trim();el.innerHTML='';let i=0;const step=()=>{el.innerHTML=full.slice(0,++i);if(i<full.length) setTimeout(step,18)};step();})();
+
+// reveal on scroll
+(function(){const els=[...document.querySelectorAll('.reveal')];const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.15});els.forEach(x=>io.observe(x));})();
+
+// sparkle canvas for projects (improved: fewer particles, performant)
+(function(){document.querySelectorAll('.project').forEach(card=>{
+  const c=card.querySelector('.sparkle'); if(!c) return; const ctx=c.getContext('2d');
+  function resize(){c.width=card.clientWidth;c.height=card.clientHeight}
+  resize(); window.addEventListener('resize',resize);
+  let raf=null;
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect(), x=e.clientX-r.left, y=e.clientY-r.top;
+    ctx.clearRect(0,0,c.width,c.height);
+    for(let i=0;i<22;i++){const a=Math.random()*Math.PI*2,d=Math.random()*70;const px=x+Math.cos(a)*d,py=y+Math.sin(a)*d;
+      ctx.globalAlpha=0.9-Math.random()*0.8; ctx.fillStyle='rgba(255,255,255,'+ (0.9-Math.random()*0.7)+')'; ctx.fillRect(px,py,Math.random()*2,Math.random()*2);
+    }
+  });
+  card.addEventListener('mouseleave',()=>ctx.clearRect(0,0,c.width,c.height));
+});})();
+
+// avatar 3d tilt
+(function(){const card=document.getElementById('avatar');if(!card) return;card.addEventListener('mousemove',e=>{
+  const r=card.getBoundingClientRect(); const x=(e.clientX-r.left)/r.width-0.5; const y=(e.clientY-r.top)/r.height-0.5;
+  card.style.transform='perspective(900px) rotateX(' + (-y*8) + 'deg) rotateY(' + (x*10) + 'deg) translateZ(6px)';
+});card.addEventListener('mouseleave',()=>card.style.transform='none');})();
+
+// animate skill bars when in view
+(function(){const bars=[...document.querySelectorAll('.bar[data-val]')];const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const i=e.target.querySelector('i');const v=e.target.getAttribute('data-val')||'60';i.style.width=v+'%';io.unobserve(e.target)}})},{threshold:.3});bars.forEach(b=>io.observe(b));})();
+
+// cursor glow
+(function(){const glow=document.getElementById('glow');window.addEventListener('mousemove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px';glow.style.opacity=1;glow.style.width='38px';glow.style.height='38px'});window.addEventListener('mousedown',()=>{glow.style.width='80px';glow.style.height='80px';setTimeout(()=>{glow.style.width='38px';glow.style.height='38px'},120)});})();
+
+// year + to top visibility
+(function(){document.getElementById('year').textContent=new Date().getFullYear();const topBtn=document.getElementById('toTop');topBtn.style.display='none';window.addEventListener('scroll',()=>{topBtn.style.display=window.scrollY>500? 'inline-flex':'none'});})();
+
+// progressive enhancement: gradient text
+(function(){const g=document.querySelector('.gradText');if(g){g.style.background='linear-gradient(90deg,var(--accent1),var(--accent2))';g.style.webkitBackgroundClip='text';g.style.backgroundClip='text';g.style.color='transparent';}}
+)();
+
+</script>
+</body>
+</html>
